@@ -1,3 +1,10 @@
 # Memória — Auditoria Go Auto
 
 - 2026-10-11 | Correção | Achado estrutural de isolamento SaaS corrigido (hotfix 26): o cálculo de preços usava ids fixos por filial (GrupoVendas::PRODUTOS/SERVICOS/HORAS, SetorEmpresa::COMERCIAL). Substituído por resolvedor por empresa+filial (ModeloNegocioService::linhaId/tipoDaLinha/setorComercialId), com escopo create_unit+tenant_id explícito. Prova de isolamento: log26/test_isolamento.php (3 empresas, 15 testes). | ModeloNegocioService.php
+- 2026-10-11 | Achado | Revisão de cadastro + reposição de senha. BEM: registo e login em bcrypt; login migra md5→bcrypt; sem SQLi; token de reset é JWT assinado. | projetos/go_auto/achados.md
+- 2026-10-11 | Achado | CRÍTICO C1: ResetSenhaForm grava nova senha em md5() (retrocesso). Corrigir p/ password_hash/updatePasswordHash. | ResetSenhaForm.php
+- 2026-10-11 | Achado | ALTO A1: link de reposição montado a partir de $_SERVER['HTTP_REFERER'] → injeção de host/desvio do token (tomada de conta) e parte sem referer. Usar URL base fixa. | EsqueciSenhaForm.php
+- 2026-10-11 | Achado | ALTO A2: token de reposição não é de uso único (válido 3h, serve após a senha mudar). Tornar single-use + validade 1h. | ResetSenhaForm.php
+- 2026-10-11 | Achado | ALTO A3: XSS refletido no cadastrar.php (ecoa $_POST em value="" sem escapar); sem CSRF. Escapar com htmlspecialchars + token CSRF. | cadastrar.php
+- 2026-10-11 | Achado | MÉDIO: M1 enumeração de utilizadores (mensagens distintas); M2 sem força mínima de senha; M3 mass-assignment fromArray($_POST); M4 sem captcha/limite nos públicos. | achados.md
+- 2026-10-11 | Pendente | Plano de correção escrito (C1,A1,A2,A3 antes de abrir ao público). Aguarda "sim" do Diego para aplicar; vai em overlay (ele sobe+extrai). | plano_de_correcao.md
