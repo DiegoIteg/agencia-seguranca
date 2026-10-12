@@ -22,3 +22,8 @@
 - 2026-10-12 | Achado | K2 CONFIRMADO: .db na raiz descarregáveis (test.db 1,4MB); .htaccess raiz não nega .db/.ini/.log. | .htaccess
 - 2026-10-12 | Achado | A1/A2 CONFIRMADOS: download.php path traversal ($_GET['file'] cru); retorno_mercado_pago.php confia em $param['status'] não assinado (forjar pagamentos). | download.php, retorno_mercado_pago.php
 - 2026-10-12 | Pendente | Aguardar "sim" do Diego para iniciar Fase 1 (Críticos). Nada alterado até lá. | —
+- 2026-10-12 | Correção | Aplicadas TODAS as fases num zip (overlay): K1-K4, A1-A4/A6/A7, endurecimento Fase 3. Lint PHP 8.3 limpo em 24 ficheiros. | go_auto_tudo.zip
+- 2026-10-12 | Decisão | Diego: trabalhar APENAS com Stripe por agora → webhooks Mercado Pago e Banco Inter DESATIVADOS (stub 410). | retorno_mercado_pago.php, hook_inter.php
+- 2026-10-12 | Decisão | application.ini NÃO incluído no zip (segredos não viajam); bloqueio do instalador movido para engine.php/index.php (sentinela .allow_install). Ferramentas dev atrás de .allow_devtools. | engine.php, index.php
+- 2026-10-12 | Pendente | Passos manuais do Diego: apagar preview_ecra.php e as .db da raiz; rodar segredos (A5). | servidor
+- 2026-10-12 | Pendente | Fica para ciclo dedicado: DataTables/Summernote XSS, dompdf SSRF, RGPD, QA funcional (Fase 4). | —
