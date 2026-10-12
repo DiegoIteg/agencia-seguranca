@@ -32,3 +32,7 @@
 - 2026-10-12 | Achado | N2 CRÍTICO: AdiantiMultiSearchService hash não cobre criteria (unserialize sem allowed_classes) → injeção objeto + leitura. | lib/adianti/service/AdiantiMultiSearchService.php:73,90
 - 2026-10-12 | Achado | N3 ALTO (arquitetural): IDOR entre empresas — onEdit/onDelete sem scoping tenant; crítico com 2+ empresas. | OrcamentoForm/CadastroDeClientesForm/ViaturaForm
 - 2026-10-12 | Pendente | Ronda 2 proposta (pacote rápido N2/N5/N7/N8/N11/N15/N4 + projeto IDOR). Aguarda decisão do Diego. | reteste_e_ronda2.md
+- 2026-10-12 | Correção | Ronda 2 aplicada e entregue (zip cumulativo R1+R2, 34 ficheiros, lint OK): N2 (MultiSearch/Autocomplete allowed_classes+hash_equals), N5 dompdf false, N7 reset host configuravel, N8 ModulesCheckView trancado, N11 excecoes nao expostas, N15 htaccess robusto. | go_auto_tudo.zip
+- 2026-10-12 | Correção | N1: conta-residuo 'Admin' removida do seed; admin do seed sem password (instalacoes novas nao nascem com admin/admin). Diego ja mudou a password na BD atual. | app/database/iteg-inserts.sql
+- 2026-10-12 | Resolvido | N3 (IDOR entre empresas) = FALSO ALARME: TRecord/TRepository fail-close por tenant_id+create_unit automaticamente; confirmado em fonte. | lib/adianti/database/TRecord.php:1229-1240
+- 2026-10-12 | Pendente | Para depois: fechar MD5 (apos migracao), anti-forca-bruta, DataTables/Summernote XSS, RGPD, QA funcional (Fase 4). | —
