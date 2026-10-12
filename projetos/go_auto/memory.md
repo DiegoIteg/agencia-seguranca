@@ -27,3 +27,8 @@
 - 2026-10-12 | Decisão | application.ini NÃO incluído no zip (segredos não viajam); bloqueio do instalador movido para engine.php/index.php (sentinela .allow_install). Ferramentas dev atrás de .allow_devtools. | engine.php, index.php
 - 2026-10-12 | Pendente | Passos manuais do Diego: apagar preview_ecra.php e as .db da raiz; rodar segredos (A5). | servidor
 - 2026-10-12 | Pendente | Fica para ciclo dedicado: DataTables/Summernote XSS, dompdf SSRF, RGPD, QA funcional (Fase 4). | —
+- 2026-10-12 | Resolvido | Reteste: Ronda 1 toda fechada (K1-K4, A1-A4, A6-A7, Fase 3) confirmada no código instalado. | reteste_e_ronda2.md
+- 2026-10-12 | Achado | N1 CRÍTICO: seed cria admin/admin (md5) e login aceita MD5 → admin/admin entra. Ação do Diego: mudar password. | app/database/iteg-inserts.sql:717, SystemUsers.php:17077
+- 2026-10-12 | Achado | N2 CRÍTICO: AdiantiMultiSearchService hash não cobre criteria (unserialize sem allowed_classes) → injeção objeto + leitura. | lib/adianti/service/AdiantiMultiSearchService.php:73,90
+- 2026-10-12 | Achado | N3 ALTO (arquitetural): IDOR entre empresas — onEdit/onDelete sem scoping tenant; crítico com 2+ empresas. | OrcamentoForm/CadastroDeClientesForm/ViaturaForm
+- 2026-10-12 | Pendente | Ronda 2 proposta (pacote rápido N2/N5/N7/N8/N11/N15/N4 + projeto IDOR). Aguarda decisão do Diego. | reteste_e_ronda2.md
