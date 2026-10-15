@@ -89,3 +89,26 @@ Cada achado: o que é · onde está · o que um atacante faria · risco de negó
 
 ### B3 — Token de reposição vai no **URL** (query string)
 - Fica em histórico/logs/Referer. Mitiga-se com uso único (A2) e validade curta; idealmente entregue via POST.
+
+## 2026-10-15 — Verificação pós-deploy (produção 157.180.89.223)
+Ferramenta: ferramentas/verificacao_goauto.sh. Resumo: CRÍTICO=1, ALTO=49, MÉDIO=2, BAIXO=1, OK=30.
+
+**CRÍTICO**
+- Backups/zip de desenvolvimento DESCARREGÁVEIS pela web (confirmado: `/app_api_base_2026-10-11.zip` → HTTP 200). ~45 ficheiros `backup_antes_hotfix*.tgz`, zips do beta/pele/api e `migracao_fatura_botoes_*.sql` + `log.db` na raiz de public_html. Vieram no pacote do servidor de teste. Risco: descarga pública de código-fonte e possivelmente dados reais (RGPD — Veloster). Correção: mover tudo para fora da raiz web (reversível).
+
+**ALTO**
+- `/install.html` acessível (HTTP 200) — página de instalação. Mover/bloquear.
+- Os ~45 backups/zip/sql acima também contam como exposição ALTA individual.
+
+**MÉDIO**
+- `/composer.json` acessível (HTTP 200) — revela dependências/versões.
+- `expose_php` LIGADO — revela versão do PHP.
+
+**BOM (OK)**
+- Cabeçalhos de segurança TODOS presentes (HSTS, X-Frame-Options, X-Content-Type-Options, CSP, Referrer-Policy, Permissions-Policy) → caminho A+.
+- app/config/application.ini (403), log.php (401), app/database/log.db (403), install.php (403) — protegidos.
+- debug OFF, display_errors OFF, sem ficheiros graváveis por todos, .htaccess presente.
+- Saúde: HTTP 200, PHP 8.3.31 + extensões todas, tabelas de log SQLite OK, pastas graváveis OK, disco 13% usado.
+- Login admin (Matriz) + Veloster OK (log SQLite corrigido: log.sqlite3 com as 5 tabelas).
+
+**Pendente de correção (com "sim" do Diego, reversível):** mover cruft para fora da web; tratar install.html, composer.json, expose_php.
