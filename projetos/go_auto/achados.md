@@ -112,3 +112,10 @@ Ferramenta: ferramentas/verificacao_goauto.sh. Resumo: CRÍTICO=1, ALTO=49, MÉD
 - Login admin (Matriz) + Veloster OK (log SQLite corrigido: log.sqlite3 com as 5 tabelas).
 
 **Pendente de correção (com "sim" do Diego, reversível):** mover cruft para fora da web; tratar install.html, composer.json, expose_php.
+
+### Correções aplicadas (2026-10-15) — RESOLVIDO
+- CRÍTICO + ALTOS fechados: 49 ficheiros de dev (backups .tgz, zips, .sql, log.db, LEIA-ME, COLAR, install.html) MOVIDOS para fora da web (/home/goauto/_fora_da_web_20261015_085758, reversível). Re-teste: .zip e install.html → 404.
+- MÉDIO composer.json + expose_php: .htaccess reforçada (backup antes; auto-reversão testada) — bloqueia .sql/.tgz/.zip/.db/composer.json/etc. e remove cabeçalho X-Powered-By. Site 200, composer.json 403.
+- Re-verificação final: CRÍTICO=0, ALTO=0, MÉDIO=1 (expose_php a nível CLI; cabeçalho HTTP já removido), BAIXO=1 (sobras do deploy). VEREDICTO: SEGURO E SAUDÁVEL.
+- Pendências menores: (a) apagar pacote exposto no servidor de TESTE (deploy_*.tgz na raiz do deploygoauto); (b) manter public_html_PREV_* alguns dias como rollback, depois apagar + novo_*.tgz; (c) expose_php=Off a nível php.ini (opcional, requer root/Webmin).
+- Lapso registado: usar variável HOME no 1º bloco de hardening sobrepôs o atalho ~ da sessão (inofensivo). Aprendizagem: não usar nomes reservados (HOME/PATH/...) em variáveis de scripts colados no terminal.
