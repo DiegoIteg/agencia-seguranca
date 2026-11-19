@@ -113,3 +113,4 @@
 - 2026-11-19 | Decisão | v55: app_web.php troca o token da app (JWT, 3 h) por sessão do sistema com o MESMO carregamento do LoginForm (regenera sessão, limpa empresa/filial, loadSessionVars com limites do plano); recusa usa_app=0; engine.php continua a recusar ecrãs fora do perfil; o visor só abre URLs index.php?class=… do próprio sistema | v55
 - 2026-11-19 | Resolvido | Cópia snap_20261119_1409 (continha a semente de produção) apagada do servidor (/home/goauto, era root 0600); falta o Diego apagar a cópia no PC (Downloads\snap_20261119_1409.tar) | v55
 - 2026-11-19 | Pendente | Para o Diego aprovar: ficheiros de instalação/manutenção na raiz pública (install.php, db-mad-manager.php, cmd.php, repair_tenant_units.php) e zips antigos em public_html (go_auto_pack_v36_20261016.zip, gostudio-app-v30.zip) — rever/retirar | Go Auto
+- 2026-11-19 | Decisão | v56 só altera apresentação (CSS/JS de layout, sem dados nem permissões); instalada com cópia e desfazer | v56
